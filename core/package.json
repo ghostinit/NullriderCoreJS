@@ -1,0 +1,24 @@
+{
+  "name": "nullrider-core",
+  "version": "1.0.0",
+  "description": "Core Node.js utilities package (starting with logging)",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghostinit/NullriderCoreJS.git"
+  },
+  "keywords": [
+    "nodejs",
+    "core",
+    "logging",
+    "utilities"
+  ],
+  "author": "Adam Lyon",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  }
+}
