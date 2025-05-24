@@ -1,6 +1,6 @@
 {
   "name": "nullrider-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Core Node.js utilities package (starting with logging)",
   "main": "index.js",
   "scripts": {

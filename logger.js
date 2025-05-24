@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const levels = ['debug', 'info', 'warn', 'error'];
-const logDir = path.join(__dirname, 'logs');
+const logDir = path.join(process.cwd(), 'logs'); // Use process.cwd() so logs are relative to project root
 const logFile = path.join(logDir, 'app.log');
 
 fs.ensureDirSync(logDir);
@@ -19,8 +19,17 @@ class Logger {
     const timestamp = new Date().toISOString();
     const formattedMessage = `[${timestamp}] [${this.prefix}] [${level.toUpperCase()}]: ${message}`;
 
-    console[level](formattedMessage);
-    fs.appendFileSync(logFile, formattedMessage + '\n');
+    try {
+      fs.appendFileSync(logFile, formattedMessage + '\n');
+    } catch (err) {
+      console.error(`Failed to write to log file: ${err.message}`);
+    }
+
+    if (typeof console[level] === 'function') {
+      console[level](formattedMessage);
+    } else {
+      console.log(formattedMessage);
+    }
   }
 
   debug(msg) { this.log('debug', msg); }
@@ -30,3 +39,13 @@ class Logger {
 }
 
 module.exports = Logger;
+
+// File: test.js
+const { Logger } = require('./index');
+
+const logger = new Logger('TEST');
+
+logger.debug('This is a debug message');
+logger.info('This is an info message');
+logger.warn('This is a warning');
+logger.error('This is an error');
